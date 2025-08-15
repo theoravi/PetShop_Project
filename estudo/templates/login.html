@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login - Teste Flask</title>
+  <!-- Bootstrap CDN (apenas para visual) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <div class="container">
+    <div class="row justify-content-center align-items-center" style="height:100vh;">
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h4 class="card-title mb-4 text-center">Login</h4>
+
+            <!-- mensagens flash -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            <form method="post" action="{{ url_for('login') }}">
+              <div class="mb-3">
+                <label for="username" class="form-label">Usuário</label>
+                <input type="text" class="form-control" id="username" name="username" required autofocus>
+              </div>
+
+              <div class="mb-3">
+                <label for="password" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+              </div>
+
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Entrar</button>
+              </div>
+            </form>
+
+            <hr>
+            <p class="text-center small text-muted">Credenciais de teste: <strong>admin / password</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
