@@ -3,14 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Meu Projeto - Apresentação</title>
+  <title>PetShop Project</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <style>
     header {
-      background: linear-gradient(90deg, #0d6efd, #6610f2);
+      background: url('https://images.unsplash.com/photo-1558788353-f76d92427f16') center/cover no-repeat;
       color: white;
-      padding: 100px 0;
       text-align: center;
+      padding: 120px 0;
+      position: relative;
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    header .container {
+      position: relative;
+      z-index: 2;
     }
     .feature-icon {
       font-size: 3rem;
@@ -30,52 +42,62 @@
   <!-- Cabeçalho -->
   <header>
     <div class="container">
-      <h1 class="display-4">Bem-vindo, {{usuario}}, ao Meu Projeto</h1>
-      <p class="lead">Uma breve descrição chamativa sobre o seu projeto para impressionar visitantes.</p>
-      <a href="{{url_for('login')}}" class="btn btn-light btn-lg mt-3">Saiba Mais</a>
+      <h1 class="display-4 fw-bold">🐾 Bem-vindo ao PetShop Project</h1>
+      <p class="lead">Agende serviços, gerencie clientes e pets de forma simples</p>
+      <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg mt-3">Entrar</a>
+      <a href="{{ url_for('register') }}" class="btn btn-light btn-lg mt-3">Criar Conta</a>
     </div>
   </header>
 
-  <!-- Seção de destaques -->
+  <!-- Funcionalidades -->
   <section class="py-5">
     <div class="container">
-      <h2 class="text-center mb-5">Destaques do Projeto</h2>
+      <h2 class="text-center mb-5">Funcionalidades</h2>
       <div class="row g-4">
-        <div class="col-md-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-              <div class="feature-icon mb-3">💡</div>
-              <h5 class="card-title">Inovador</h5>
-              <p class="card-text">Uma solução única que traz inovação e praticidade para o dia a dia.</p>
-            </div>
+        <div class="col-md-3">
+          <div class="card h-100 shadow-sm text-center p-3">
+            <div class="feature-icon mb-3">🗓️</div>
+            <h5>Agendamento Online</h5>
+            <p>Agende banhos, tosas e consultas de forma rápida e prática.</p>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-              <div class="feature-icon mb-3">⚡</div>
-              <h5 class="card-title">Rápido</h5>
-              <p class="card-text">Desempenho otimizado para entregar resultados em segundos.</p>
-            </div>
+        <div class="col-md-3">
+          <div class="card h-100 shadow-sm text-center p-3">
+            <div class="feature-icon mb-3">🐶</div>
+            <h5>Cadastro de Pets</h5>
+            <p>Registre informações e fotos dos animais para histórico completo.</p>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-              <div class="feature-icon mb-3">🔒</div>
-              <h5 class="card-title">Seguro</h5>
-              <p class="card-text">Segurança de ponta para proteger seus dados e informações.</p>
-            </div>
+        <div class="col-md-3">
+          <div class="card h-100 shadow-sm text-center p-3">
+            <div class="feature-icon mb-3">📜</div>
+            <h5>Histórico</h5>
+            <p>Acompanhe todos os serviços já realizados no seu petshop.</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card h-100 shadow-sm text-center p-3">
+            <div class="feature-icon mb-3">📦</div>
+            <h5>Controle de Estoque</h5>
+            <p>Gerencie produtos e insumos com alertas de reposição.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Chamada final -->
+  <section class="bg-primary text-white text-center py-5">
+    <div class="container">
+      <h2>Comece a gerenciar seu PetShop hoje</h2>
+      <a href="{{ url_for('register') }}" class="btn btn-light btn-lg mt-3">Criar Conta Grátis</a>
+    </div>
+  </section>
+
   <!-- Rodapé -->
   <footer>
     <div class="container">
-      <p>&copy; 2025 Meu Projeto. Todos os direitos reservados.</p>
+      <p>&copy; 2025 PetShop Project. Todos os direitos reservados.</p>
     </div>
   </footer>
 
