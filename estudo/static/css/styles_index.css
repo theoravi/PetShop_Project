@@ -1,0 +1,81 @@
+header {
+  background-color: #A1D6E2;
+  padding: 60px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+header .container {
+  position: relative;
+  z-index: 2;
+}
+
+.feature-icon {
+  font-size: 3rem;
+  color: #0d6efd;
+}
+
+.footer-custom {
+  background-color: #f8f9fa;
+  padding: 20px 0;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+/* === Animação de flutuação para a imagem do Husky === */
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.husky-image {
+  max-height: 500px;
+  width: auto;
+  object-fit: contain;
+  animation: float 2s ease-in-out infinite;
+}
+
+.enter_button{
+  background-color: #1694b1;
+  border-color: #1694b1;
+}
+
+.enter_button:hover {
+  background-color: #107180;
+  border-color: #107180;
+}
+
+.background_end {
+  position: relative;
+  background-color: #A1D6E2;
+  color: #ffffff;
+}
+
+.background_end::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.background_end * {
+  position: relative;
+  z-index: 2;
+}
+
+
+
