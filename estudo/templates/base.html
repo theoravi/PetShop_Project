@@ -13,9 +13,9 @@
       <h3>PetShop</h3>
       <ul>
         <li><a href="{{ url_for('appointments') }}">Agendamentos</a></li>
-        {% if current_user.is_admin %}
-          <li><a href="{{ url_for('employees') }}">Cadastro de Funcionários</a></li>
-        {% endif %}
+        <!-- {% if current_user.is_admin %} -->
+        <!-- {% endif %} -->
+        <li><a href="{{ url_for('employees') }}">Cadastro de Funcionários</a></li>
         <li><a href="{{ url_for('pets') }}">Cadastro de Pets</a></li>
         <li><a href="{{ url_for('customers') }}">Cadastro de Clientes</a></li>
       </ul>

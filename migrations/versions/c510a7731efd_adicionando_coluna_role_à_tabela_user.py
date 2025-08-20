@@ -1,8 +1,8 @@
 """Adicionando coluna 'role' à tabela 'user'
 
-Revision ID: 8f30223382d5
+Revision ID: c510a7731efd
 Revises: 
-Create Date: 2025-08-20 16:54:04.923249
+Create Date: 2025-08-20 17:45:36.016800
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '8f30223382d5'
+revision = 'c510a7731efd'
 down_revision = None
 branch_labels = None
 depends_on = None

@@ -46,8 +46,8 @@ def appointments():
 @app.route('/employees')
 @login_required
 def employees():
-    if not current_user.role != 'admin':
-        return redirect(url_for('appointments'))
+    # if not current_user.role != 'admin':
+    #     return redirect(url_for('appointments'))
     return render_template('employees.html')
 
 @app.route('/pets')
