@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Agendamentos{% endblock %}
+
+{% block content %}
+  <h2>Meus Agendamentos</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Data/Hora</th>
+        <th>Serviço</th>
+        <th>Pet</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for appt in appointments %}
+        <tr>
+          <td>{{ appt.date_time.strftime('%d/%m/%Y %H:%M') }}</td>
+          <td>{{ appt.service.name }}</td>
+          <td>{{ appt.pet.name }}</td>
+          <td>{{ appt.status }}</td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="4" class="text-center">Nenhum agendamento encontrado.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
