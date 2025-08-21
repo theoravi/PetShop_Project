@@ -1,11 +1,47 @@
 {% extends 'base.html' %}
-
 {% block title %}Cadastro de Funcionários{% endblock %}
-
 {% block content %}
-  <h2>Cadastro de Funcionários</h2>
-  <form method="POST">
-    <!-- Campos do formulário -->
-    <button type="submit" class="btn btn-primary">Cadastrar</button>
-  </form>
+<h2>Cadastro de Funcionários</h2>
+<form method="POST">
+  {{ form.hidden_tag() }}
+  
+  {% if form.errors %}
+    <div class="alert alert-danger">
+      <ul>
+        {% for field, errors in form.errors.items() %}
+          {% for error in errors %}
+            <li>{{ form[field].label.text }}: {{ error }}</li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  <div class="mb-3">
+    {{ form.name.label(class="form-label") }}
+    {{ form.name(class="form-control") }}
+  </div>
+  <div class="mb-3">
+    {{ form.username.label(class="form-label") }}
+    {{ form.username(class="form-control") }}
+  </div>
+  <div class="mb-3">
+    {{ form.email.label(class="form-label") }}
+    {{ form.email(class="form-control") }}
+  </div>
+  <div class="mb-3">
+    {{ form.password.label(class="form-label") }}
+    {{ form.password(class="form-control") }}
+  </div>
+  <div class="mb-3">
+    {{ form.confirm_password.label(class="form-label") }}
+    {{ form.confirm_password(class="form-control") }}
+  </div>
+  <div class="mb-3">
+    {{ form.role.label(class="form-label") }}
+    {{ form.role(class="form-control") }}
+  </div>
+  {{ form.submit(class="btn btn-primary") }}
+</form>
+
+
 {% endblock %}
