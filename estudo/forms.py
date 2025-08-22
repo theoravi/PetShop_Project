@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, SelectField, DateTimeField, IntegerField
-from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
+from wtforms import StringField, SubmitField, PasswordField, SelectField, DateTimeField, IntegerField, DecimalField
+from wtforms.validators import DataRequired, Email, EqualTo, ValidationError, NumberRange
 from estudo.models import Customer
 from validate_docbr import CPF as CPFValidator
 
@@ -57,12 +57,13 @@ class LoginForm(FlaskForm):
         else:
             raise Exception('Invalid username or password!')
         
-
 class ScheduleForm(FlaskForm):
-    date_time = DateTimeField('DateTime', format='%Y-%m-%d %H:%M', validators=[DataRequired()])
-    service = SelectField('Service', coerce=int, validators=[DataRequired()])
+    date_time = DateTimeField('Data e Hora', format='%Y-%m-%d %H:%M', validators=[DataRequired()])
+    service_name = StringField('Serviço', validators=[DataRequired()])
+    price = DecimalField('Preço (R$)', places=2, validators=[DataRequired(), NumberRange(min=0)])
+    customer_id = SelectField('Cliente', coerce=int, validators=[DataRequired()])
     pet = SelectField('Pet', coerce=int, validators=[DataRequired()])
-    submit = SubmitField('Confirm')
+    submit = SubmitField('Agendar')
 
 
 class CustomerForm(FlaskForm):

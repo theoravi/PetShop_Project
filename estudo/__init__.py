@@ -16,5 +16,5 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 bcrypt = Bcrypt(app) 
 
-from estudo.models import Customer, Pet, Service, Appointment
+from estudo.models import Customer, Pet, User, Appointment
 from estudo.views import homepage

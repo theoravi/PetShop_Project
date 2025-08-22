@@ -1,7 +1,7 @@
 from estudo import app, db
 from flask import render_template, url_for, redirect, flash
 from flask_login import login_user, login_required, logout_user, current_user
-from .models import Appointment, Service, Pet, Customer, User
+from .models import Appointment, Pet, Customer, User
 from estudo.forms import (
     LoginForm,
     ScheduleForm,
@@ -35,17 +35,25 @@ def logout():
 @login_required
 def appointments():
     form = ScheduleForm()
-    # Preencher opções de serviço e pet
-    form.service.choices = [(s.id, s.name) for s in Service.query.all()]
-    form.pet.choices = [(p.id, p.name) for p in Pet.query.all()]
+    customers = Customer.query.order_by(Customer.name).all()
+    form.customer_id.choices = [(c.id, c.name) for c in customers]
+    form.pet.choices = [(p.id, f"{p.name} ({p.customer.name})") for c in customers for p in c.pets]
 
     if form.validate_on_submit():
+        customer_id = form.customer_id.data
+        pet_id = form.pet.data
+        pet_obj = Pet.query.get(pet_id)
+        if not pet_obj or pet_obj.customer_id != customer_id:
+            flash('Pet inválido para o cliente selecionado.', 'danger')
+            return redirect(url_for('appointments'))
+
         new_appt = Appointment(
             date_time=form.date_time.data,
-            service_id=form.service.data,
-            pet_id=form.pet.data,
-            customer_id=current_user.id,
-            pet_name=Pet.query.get(form.pet.data).name,
+            service_name=form.service_name.data,
+            price=float(form.price.data),
+            customer_id=customer_id,
+            pet_id=pet_id,
+            pet_name=pet_obj.name,
             status='Scheduled'
         )
         db.session.add(new_appt)
@@ -54,10 +62,28 @@ def appointments():
         return redirect(url_for('appointments'))
 
     appointments_list = Appointment.query.filter_by(customer_id=current_user.id).all()
-    customers = Customer.query.all()
-    pets_by_customer = {c.id: c.pets for c in customers}
-    return render_template('appointments.html', appointments=appointments_list, form=form,
-                        customers=customers, pets_dict=pets_by_customer)
+    pets_by_customer = {c.id: [{'id': p.id, 'name': p.name} for p in c.pets] for c in customers}
+    return render_template('appointments.html',
+                           form=form,
+                           appointments=appointments_list,
+                           customers=customers,
+                           pets_dict=pets_by_customer)
+
+    # lista exibida (apenas os agendamentos do usuário logado; adapte se for admin)
+    appointments_list = Appointment.query.filter_by(customer_id=current_user.id).all()
+
+    # montar mapa pets por cliente para o JS
+    pets_by_customer = {}
+    for c in customers:
+        pets_by_customer[c.id] = [{'id': p.id, 'name': p.name} for p in c.pets]
+
+    return render_template(
+        'appointments.html',
+        appointments=appointments_list,
+        form=form,
+        customers=customers,
+        pets_dict=pets_by_customer
+    )
 
 @app.route('/customers', methods=['GET', 'POST'])
 @login_required

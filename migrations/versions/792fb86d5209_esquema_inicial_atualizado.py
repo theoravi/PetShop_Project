@@ -1,8 +1,8 @@
-"""add cpf to customers
+"""Esquema inicial atualizado
 
-Revision ID: 0ed8cb0d5078
+Revision ID: 792fb86d5209
 Revises: 
-Create Date: 2025-08-21 16:35:02.743710
+Create Date: 2025-08-22 16:17:35.381367
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '0ed8cb0d5078'
+revision = '792fb86d5209'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -28,13 +28,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('cpf'),
     sa.UniqueConstraint('email')
-    )
-    op.create_table('services',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=100), nullable=False),
-    sa.Column('description', sa.Text(), nullable=True),
-    sa.Column('price', sa.Float(), nullable=False),
-    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -64,10 +57,10 @@ def upgrade():
     sa.Column('customer_id', sa.Integer(), nullable=False),
     sa.Column('pet_id', sa.Integer(), nullable=False),
     sa.Column('pet_name', sa.String(length=100), nullable=False),
-    sa.Column('service_id', sa.Integer(), nullable=False),
+    sa.Column('service_name', sa.String(length=100), nullable=False),
+    sa.Column('price', sa.Float(), nullable=False),
     sa.ForeignKeyConstraint(['customer_id'], ['customers.id'], ),
     sa.ForeignKeyConstraint(['pet_id'], ['pets.id'], ),
-    sa.ForeignKeyConstraint(['service_id'], ['services.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
@@ -78,6 +71,5 @@ def downgrade():
     op.drop_table('appointments')
     op.drop_table('pets')
     op.drop_table('user')
-    op.drop_table('services')
     op.drop_table('customers')
     # ### end Alembic commands ###

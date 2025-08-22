@@ -49,17 +49,6 @@ class Pet(db.Model):
     def __repr__(self):
         return f'<Pet {self.name!r}>'
 
-class Service(db.Model):
-    __tablename__ = 'services'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.Text, nullable=True)
-    price = db.Column(db.Float, nullable=False)
-
-    appointments = db.relationship('Appointment', backref='service', lazy=True)
-
-    def __repr__(self):
-        return f'<Service {self.name!r}: {self.price}>'
 
 class Appointment(db.Model):
     __tablename__ = 'appointments'
@@ -70,8 +59,11 @@ class Appointment(db.Model):
     customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'), nullable=False)
     pet_id = db.Column(db.Integer, db.ForeignKey('pets.id'), nullable=False)
     pet_name = db.Column(db.String(100), nullable=False)
-    service_id = db.Column(db.Integer, db.ForeignKey('services.id'), nullable=False)
+
+    # Novos campos
+    service_name = db.Column(db.String(100), nullable=False)
+    price = db.Column(db.Float, nullable=False)
 
     def __repr__(self):
         return (f'<Appointment {self.id} - Pet: {self.pet.name!r} - '
-                f'DateTime: {self.date_time}>')
+                f'{self.service_name} at {self.date_time}>')
